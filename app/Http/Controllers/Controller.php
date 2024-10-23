@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\NotFoundHttpException;
+use Illuminate\Http\Request;
 
 abstract class Controller
 {
