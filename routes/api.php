@@ -11,5 +11,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('raffle', RaffleController::class);
+Route::get('raffle/{raffle}/tickets', [RaffleController::class, 'tickets']);
+Route::get('raffle/{raffle}/card', [RaffleController::class, 'card']);
 Route::apiResource('participant', ParticipantController::class);
 Route::apiResource('ticket', TicketController::class);
