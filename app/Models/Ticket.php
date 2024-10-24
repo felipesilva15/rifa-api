@@ -11,8 +11,16 @@ class Ticket extends Model
         'raffle_id',
         'participant_id',
         'number',
-        'payment_date'
+        'payment_date',
+        'value'
     ];
+
+    protected function casts(): array {
+        return [
+            'value' => 'double'
+        ];
+    }
+
 
     public function participant(): BelongsTo {
         return $this->belongsTo(Participant::class);

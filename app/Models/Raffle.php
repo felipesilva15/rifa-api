@@ -11,8 +11,15 @@ class Raffle extends Model
         'name',
         'maximum_numbers',
         'start_date',
-        'end_date'
+        'end_date',
+        'ticket_value'
     ];
+
+    protected function casts(): array {
+        return [
+            'ticket_value' => 'double'
+        ];
+    }
 
     public function tickets(): HasMany {
         return $this->hasMany(Ticket::class);

@@ -26,6 +26,7 @@ class RaffleRequest extends FormRequest
             'maximum_numbers' => 'required|integer',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
+            'ticket_value' => 'required|decimal:0,2|min:0.01|max:999.99'
         ];
     }
 }
