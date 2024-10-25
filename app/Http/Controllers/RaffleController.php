@@ -12,6 +12,65 @@ class RaffleController extends Controller
         $this->request = $request;
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/raffle",
+     *      tags={"Raffle"},
+     *      summary="List all raffles",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Raffle ID",
+     *         @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         description="Raffle name",
+     *         @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *         name="maximum_numbers",
+     *         in="query",
+     *         description="Raffle maximum numbers",
+     *         @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *         name="start_date",
+     *         in="query",
+     *         description="Raffle start date",
+     *         @OA\Schema(type="string", format="date")
+     *      ),
+     *      @OA\Parameter(
+     *         name="end_date",
+     *         in="query",
+     *         description="Raffle end date",
+     *         @OA\Schema(type="string", format="date")
+     *      ),
+     *      @OA\Parameter(
+     *         name="ticket_value",
+     *         in="query",
+     *         description="Raffle ticket value",
+     *         @OA\Schema(type="number", format="double")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="Raffle list",
+     *          @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Raffle")
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized",
+     *      )
+     * )
+     */
+    public function index() {
+        return parent::index();
+    }
+
     public function tickets(Raffle $raffle) {
         return response()->json($raffle->tickets, 200);
     }

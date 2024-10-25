@@ -1,0 +1,168 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Rifa API Docs",
+        "description": "API para gerenciamento de rifas",
+        "contact": {
+            "name": "Felipe Silva",
+            "email": "felipe.allware@gmail.com"
+        },
+        "license": {
+            "name": "API Licence",
+            "url": "https://github.com/felipesilva15/rifa-api/blob/main/LICENSE"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/raffle": {
+            "get": {
+                "tags": [
+                    "Raffle"
+                ],
+                "summary": "List all raffles",
+                "operationId": "dcb7d24965c3e198389772664463eab2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Raffle ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Raffle name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "maximum_numbers",
+                        "in": "query",
+                        "description": "Raffle maximum numbers",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "Raffle start date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "Raffle end date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "ticket_value",
+                        "in": "query",
+                        "description": "Raffle ticket value",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Raffle list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Raffle"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Raffle": {
+                "required": [
+                    "name",
+                    "maximum_numbers",
+                    "start_date",
+                    "ticket_value"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 120,
+                        "minLength": 3,
+                        "example": "Felipe Silva"
+                    },
+                    "maximum_numbers": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-12-01"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-01-30"
+                    },
+                    "ticket_value": {
+                        "type": "number",
+                        "format": "double",
+                        "maximum": 999.99,
+                        "minimum": 0.01,
+                        "example": 20
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-30T03:00:00.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-30T03:00:00.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Raffle",
+            "description": "Raffle"
+        }
+    ]
+}
