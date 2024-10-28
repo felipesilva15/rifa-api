@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *      schema="Raffle",
  *      required={"name", "maximum_numbers", "start_date", "ticket_value"},
  *      @OA\Property(property="id", type="integer", example=1),
- *      @OA\Property(property="name", type="string", minLength=3, maxLength=120, example="Felipe Silva"),
+ *      @OA\Property(property="name", type="string", minLength=3, maxLength=120, example="Xbox Series S"),
  *      @OA\Property(property="maximum_numbers", type="integer", example=100),
  *      @OA\Property(property="start_date", type="string", format="date", example="2024-12-01"),
  *      @OA\Property(property="end_date", type="string", format="date", example="2025-01-30"),

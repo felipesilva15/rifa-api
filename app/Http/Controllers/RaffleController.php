@@ -62,13 +62,147 @@ class RaffleController extends Controller
      *         )
      *      ),
      *      @OA\Response(
-     *          response="401",
+     *          response="401", 
      *          description="Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
      *      )
      * )
      */
     public function index() {
         return parent::index();
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/raffle/{id}",
+     *      tags={"Raffle"},
+     *      summary="List an raffle by ID",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Raffle ID",
+     *         @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="Raffle data",
+     *          @OA\JsonContent(ref="#/components/schemas/Raffle")
+     *      ),
+     *      @OA\Response(
+     *          response="401", 
+     *          description="Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      ),
+     *      @OA\Response(
+     *          response="404", 
+     *          description="Record not found",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      )
+     * )
+     */
+    public function show($id) {
+        return parent::show($id);
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/raffle",
+     *      tags={"Raffle"},
+     *      summary="Registers an raffle",
+     *      @OA\RequestBody(
+     *         required=true,
+     *         description="Data for creating a new raffle",
+     *         @OA\JsonContent(ref="#/components/schemas/Raffle")
+     *      ),
+     *      @OA\Response(
+     *          response="201", 
+     *          description="Registered raffle data",
+     *          @OA\JsonContent(ref="#/components/schemas/Raffle")
+     *      ),
+     *      @OA\Response(
+     *          response="401", 
+     *          description="Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      )
+     * )
+     */
+    public function store(Request $request) {
+        return parent::store($request);
+    }
+
+    /**
+     * @OA\Put(
+     *      path="/api/raffle/{id}",
+     *      tags={"Raffle"},
+     *      summary="Update an raffle",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Raffle ID",
+     *         @OA\Schema(type="integer")
+     *      ),
+     *      @OA\RequestBody(
+     *         required=true,
+     *         description="Data for update raffle",
+     *         @OA\JsonContent(ref="#/components/schemas/Raffle")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="Updated raffle data",
+     *          @OA\JsonContent(ref="#/components/schemas/Raffle")
+     *      ),
+     *      @OA\Response(
+     *          response="401", 
+     *          description="Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      ),
+     *      @OA\Response(
+     *          response="404", 
+     *          description="Record not found",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      )
+     * )
+     */
+    public function update(Request $request, $id) {
+        return parent::update($request, $id);
+    }
+
+    /**
+     * @OA\Delete(
+     *      path="/api/raffle/{id}",
+     *      tags={"Raffle"},
+     *      summary="Deletes an raffle",
+     *      @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Raffle ID",
+     *         @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response="200", 
+     *          description="Return message",
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Registro deletado com sucesso!")
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response="401", 
+     *          description="Unauthorized",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      ),
+     *      @OA\Response(
+     *          response="404", 
+     *          description="Record not found",
+     *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
+     *      )
+     * )
+     */
+    public function destroy( $id) {
+        return parent::destroy($id);
     }
 
     public function tickets(Raffle $raffle) {
