@@ -182,12 +182,8 @@ class RaffleController extends Controller
      *         @OA\Schema(type="integer")
      *      ),
      *      @OA\Response(
-     *          response="200", 
-     *          description="Return message",
-     *          @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="message", type="string", example="Registro deletado com sucesso!")
-     *         )
+     *          response="204", 
+     *          description="Response"
      *      ),
      *      @OA\Response(
      *          response="401", 
