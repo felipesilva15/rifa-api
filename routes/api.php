@@ -13,9 +13,19 @@ Route::post('/utils/generate-hash', [UtilsController::class, 'generateHash']);
 Route::get('/utils/generate-hash', [UtilsController::class, 'generateHash']);
 
 Route::group(['middleware' => 'auth:api'], function () {
+    // Auth
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh-token', [AuthController::class, 'refresh']);
+    Route::get('/me', [AuthController::class, 'me']);
+
+    // Raffle
     Route::apiResource('raffle', RaffleController::class);
     Route::get('raffle/{raffle}/tickets', [RaffleController::class, 'tickets']);
     Route::get('raffle/{raffle}/card', [RaffleController::class, 'card']);
+
+    // Participant
     Route::apiResource('participant', ParticipantController::class);
+    
+    // Ticket
     Route::apiResource('ticket', TicketController::class);
 });
