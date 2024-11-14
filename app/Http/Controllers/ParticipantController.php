@@ -53,7 +53,8 @@ class ParticipantController extends Controller
      *          response="401", 
      *          description="Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function index() {
@@ -86,7 +87,8 @@ class ParticipantController extends Controller
      *          response="404", 
      *          description="Record not found",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function show($id) {
@@ -112,7 +114,8 @@ class ParticipantController extends Controller
      *          response="401", 
      *          description="Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function store(Request $request) {
@@ -150,7 +153,8 @@ class ParticipantController extends Controller
      *          response="404", 
      *          description="Record not found",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function update(Request $request, $id) {
@@ -182,7 +186,8 @@ class ParticipantController extends Controller
      *          response="404", 
      *          description="Record not found",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function destroy( $id) {

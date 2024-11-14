@@ -53,17 +53,6 @@ class AuthController extends Controller
      *     tags={"Authentication"},
      *     summary="Logged in user data",
      *     @OA\Response(
-     *          response="200", 
-     *          description="User data",
-     *          @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="USUARIO_ID", type="integer", example=1),
-     *             @OA\Property(property="USUARIO_NOME", type="string", example="Username"),
-     *             @OA\Property(property="USUARIO_EMAIL", type="string", example="example@example.com"),
-     *             @OA\Property(property="USUARIO_CPF", type="string", example="12685963501")
-     *         )
-     *     ),
-     *     @OA\Response(
      *          response="401", 
      *          description="Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")

@@ -65,7 +65,8 @@ class TicketController extends Controller
      *          response="401", 
      *          description="Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function index() {
@@ -98,7 +99,8 @@ class TicketController extends Controller
      *          response="404", 
      *          description="Record not found",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function show($id) {
@@ -124,7 +126,8 @@ class TicketController extends Controller
      *          response="401", 
      *          description="Unauthorized",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function store(Request $request) {
@@ -162,7 +165,8 @@ class TicketController extends Controller
      *          response="404", 
      *          description="Record not found",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function update(Request $request, $id) {
@@ -194,7 +198,8 @@ class TicketController extends Controller
      *          response="404", 
      *          description="Record not found",
      *          @OA\JsonContent(ref="#/components/schemas/ErrorResponse")
-     *      )
+     *      ),
+     *     security={{"bearerAuth":{}}}
      * )
      */
     public function destroy( $id) {
