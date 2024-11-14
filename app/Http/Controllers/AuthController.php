@@ -10,7 +10,7 @@ class AuthController extends Controller
     public function login(Request $request) {
         $credentials = [
             'email' => $request->email, // Campo personalizado para o login
-            'password' =>$request->password, // Campo padrão para a senha
+            'password' => $request->password, // Campo padrão para a senha
         ];
     
         if (!$token = JWTAuth::attempt($credentials)) {

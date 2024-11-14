@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RaffleController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UtilsController;
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/utils/generate-hash', [UtilsController::class, 'generateHash']);
+Route::get('/utils/generate-hash', [UtilsController::class, 'generateHash']);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('raffle', RaffleController::class);
