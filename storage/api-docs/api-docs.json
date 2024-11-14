@@ -14,6 +14,186 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Log in",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "description": "Data for creating a new participant",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessTokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Credenciais inválidas."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logged in user data",
+                "operationId": "9d9bc556f927575aa492a88c28fe5908",
+                "responses": {
+                    "200": {
+                        "description": "User data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "USUARIO_ID": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "USUARIO_NOME": {
+                                            "type": "string",
+                                            "example": "Username"
+                                        },
+                                        "USUARIO_EMAIL": {
+                                            "type": "string",
+                                            "example": "example@example.com"
+                                        },
+                                        "USUARIO_CPF": {
+                                            "type": "string",
+                                            "example": "12685963501"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "integer",
+                                            "example": "Logout efetuado com sucesso."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/refresh-token": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh the access token",
+                "operationId": "41b109d150a67fd6df88cced4d491a6f",
+                "responses": {
+                    "200": {
+                        "description": "Token details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessTokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/participant": {
             "get": {
                 "tags": [
@@ -947,6 +1127,40 @@
     },
     "components": {
         "schemas": {
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "email@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "123"
+                    }
+                },
+                "type": "object"
+            },
+            "AccessTokenResponse": {
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "example": "token123"
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "example": "bearer"
+                    },
+                    "expires_in": {
+                        "type": "number",
+                        "example": 3600
+                    }
+                },
+                "type": "object"
+            },
             "ErrorResponse": {
                 "properties": {
                     "message": {
@@ -1111,6 +1325,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
         {
             "name": "Participant",
             "description": "Participant"
