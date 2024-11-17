@@ -12,7 +12,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/utils/generate-hash', [UtilsController::class, 'generateHash']);
 Route::get('/utils/generate-hash', [UtilsController::class, 'generateHash']);
 
-Route::group(['middleware' => 'auth:api'], function () {
+// Route::group(['middleware' => 'auth:api'], function () {
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh-token', [AuthController::class, 'refresh']);
@@ -28,4 +28,4 @@ Route::group(['middleware' => 'auth:api'], function () {
     
     // Ticket
     Route::apiResource('ticket', TicketController::class);
-});
+// });

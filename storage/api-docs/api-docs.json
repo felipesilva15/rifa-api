@@ -70,34 +70,6 @@
                 "summary": "Logged in user data",
                 "operationId": "9d9bc556f927575aa492a88c28fe5908",
                 "responses": {
-                    "200": {
-                        "description": "User data",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "USUARIO_ID": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "USUARIO_NOME": {
-                                            "type": "string",
-                                            "example": "Username"
-                                        },
-                                        "USUARIO_EMAIL": {
-                                            "type": "string",
-                                            "example": "example@example.com"
-                                        },
-                                        "USUARIO_CPF": {
-                                            "type": "string",
-                                            "example": "12685963501"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "401": {
                         "description": "Unauthorized",
                         "content": {
