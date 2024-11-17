@@ -31,7 +31,9 @@ class Raffle extends Model
 
     protected function casts(): array {
         return [
-            'ticket_value' => 'double'
+            'ticket_value' => 'double',
+            'start_date' => 'datetime',
+            'end_date' => 'datetime'
         ];
     }
 
