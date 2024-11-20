@@ -41,6 +41,7 @@ abstract class Controller
         $query->orderBy('id', 'desc');
 
         $data = $query->get();
+        $data = $this->convertDataToResourceCollection($data);
 
         return response()->json($data, 200);
     }
@@ -51,6 +52,8 @@ abstract class Controller
         if (!$data) {
             throw new NotFoundHttpException();
         }
+
+        $data = $this->convertDataToResource($data);
         
         return response()->json($data, 200);
     }
@@ -88,6 +91,13 @@ abstract class Controller
         return response()->noContent();
     }
 
+    protected function getFormRequestClass(): string {
+        $modelClass = class_basename($this->model);
+        $requestClass = "App\\Http\\Requests\\{$modelClass}Request";
+
+        return $requestClass;
+    }
+
     protected function validateRequest(Request $request): mixed {
         $formRequestClass = $this->getFormRequestClass();
 
@@ -101,10 +111,30 @@ abstract class Controller
         return $data;
     }
 
-    protected function getFormRequestClass(): string {
+    protected function getResourceClass(): string {
         $modelClass = class_basename($this->model);
-        $requestClass = "App\\Http\\Requests\\{$modelClass}Request";
+        $requestClass = "App\\Http\\Resources\\{$modelClass}Resource";
 
         return $requestClass;
+    }
+
+    protected function convertDataToResource(mixed $data): mixed {
+        $resourceClass = $this->getResourceClass();
+
+        if (class_exists($resourceClass)) {
+            $data = new $resourceClass($data);
+        }
+
+        return $data;
+    }
+
+    protected function convertDataToResourceCollection(mixed $data): mixed {
+        $resourceClass = $this->getResourceClass();
+
+        if (class_exists($resourceClass)) {
+            $data = $resourceClass::collection($data);
+        }
+
+        return $data;
     }
 }
