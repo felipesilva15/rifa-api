@@ -19,6 +19,8 @@ class TicketResource extends JsonResource
             'number' => $this->number,
             'value' => $this->value,
             'payment_date' => $this->payment_date,
+            'participant_id' => $this->participant_id,
+            'raffle_id' => $this->raffle_id,
             'participant' => [
                 'id' => $this->participant->id,
                 'name' => $this->participant->name
