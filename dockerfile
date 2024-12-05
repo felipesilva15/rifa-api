@@ -32,6 +32,6 @@ RUN composer install --ignore-platform-req=ext-bcmath
 RUN php artisan migrate --force
 RUN php artisan route:cache && php artisan view:cache
 RUN php artisan key:generate
-RUN php artisan jwt:secret
+RUN php artisan jwt:secret --force
 
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
