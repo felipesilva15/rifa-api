@@ -7,9 +7,16 @@ use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UtilsController;
 
+// Auth
 Route::post('/login', [AuthController::class, 'login']);
+
+// Utils
 Route::post('/utils/generate-hash', [UtilsController::class, 'generateHash']);
 Route::get('/utils/generate-hash', [UtilsController::class, 'generateHash']);
+
+// Raffle
+Route::get('raffle/{raffle}/card', [RaffleController::class, 'card']);
+Route::get('raffle/{id}', [RaffleController::class, 'show']);
 
 Route::group(['middleware' => 'auth:api'], function () {
     // Auth
@@ -20,7 +27,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Raffle
     Route::apiResource('raffle', RaffleController::class);
     Route::get('raffle/{raffle}/tickets', [RaffleController::class, 'tickets']);
-    Route::get('raffle/{raffle}/card', [RaffleController::class, 'card']);
 
     // Participant
     Route::apiResource('participant', ParticipantController::class);
