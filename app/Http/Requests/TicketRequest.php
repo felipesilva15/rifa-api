@@ -42,8 +42,8 @@ class TicketRequest extends FormRequest
                 'required',
                 'integer', 
                 Rule::unique('tickets')->where(fn (Builder $query) => $query->where('raffle_id', $this->raffle_id))->ignore($id),
-                'min:1',
-                'max:'.$maximun_number
+                'min:0',
+                'max:'.$maximun_number - 1
             ],
             'payment_date' => 'nullable|date',
             'value' => 'nullable|decimal:0,2|min:0.01'

@@ -273,7 +273,7 @@ class RaffleController extends Controller
         $tickets = collect($raffle->tickets()->whereNotNull('payment_date')->get());
         $card = [];
 
-        for ($i=1; $i <= $raffle->maximum_numbers; $i++) {
+        for ($i=0; $i < $raffle->maximum_numbers; $i++) {
             $purchased = $tickets->contains(function ($ticket) use ($i) {
                 return $ticket->number == $i;
             });
