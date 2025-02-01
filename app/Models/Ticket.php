@@ -31,7 +31,8 @@ class Ticket extends Model
 
     protected function casts(): array {
         return [
-            'value' => 'double'
+            'value' => 'double',
+            'payment_date' => 'datetime'
         ];
     }
 
