@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RaffleController;
 use App\Http\Controllers\ParticipantController;
@@ -33,4 +34,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     
     // Ticket
     Route::apiResource('ticket', TicketController::class);
+
+    // Dashboard
+    Route::get('dashboard/home', [DashboardController::class, 'home']);
 });
