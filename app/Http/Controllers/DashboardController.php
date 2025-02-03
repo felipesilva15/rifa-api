@@ -13,12 +13,13 @@ class DashboardController extends Controller
 
         $buyedTickets = $raffle->tickets()->whereNotNull('payment_date')->get();
 
-        $totalProfit = $raffle->ticket_value * $raffle->maximum_numbers;
-        $receivedProfit = $buyedTickets->sum('value');
-        $pendingProfit = $totalProfit - $receivedProfit;
+        $totalParticipants = $buyedTickets->groupBy('participant_id')->count();
 
         $totalBuyedTickets = $buyedTickets->count();
         $totalPendingTickets = $raffle->maximum_numbers - $totalBuyedTickets;
+
+        $pendingProfit = $raffle->ticket_value * $totalPendingTickets;
+        $receivedProfit = $buyedTickets->sum('value');
 
         // $currentMonthProfit = $user->financial_transactions()->whereMonth('transaction_date', now()->month)->where('movement_type', MovementTypeEnum::Credit->value)->get()->sum('amount');
         // $currentMonthPendingProfit = $user->provider->charges()->whereMonth('due_date', now()->month)->where('payment_status', PaymentStatusEnum::Waiting)->get()->sum('amount');
@@ -73,12 +74,12 @@ class DashboardController extends Controller
         // ];
 
         $data = [
-            "raffle" => [
-                "totalProfit" => $totalProfit,
+            "summary" => [
                 "receivedProfit" => $receivedProfit,
                 "pendingProfit" => $pendingProfit,
                 "totalBuyedTickets" => $totalBuyedTickets,
-                "totalPendingTickets" => $totalPendingTickets
+                "totalPendingTickets" => $totalPendingTickets,
+                "totalParticipants" => $totalParticipants
             ],
         ];
 
