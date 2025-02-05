@@ -38,40 +38,23 @@ class DashboardController extends Controller
         //     return $patient;
         // });
 
-        // $patientsChartData = [
-        //     'months' => [],
-        //     'total' => [],
-        //     'new' => []
-        // ];
+        $participantsGroupedByName = $buyedTickets->groupBy('participant.name');
+        $participantsTickets = collect($participantsGroupedByName)->map(function($participantTickets, $key) {
+            return [
+                "name" => $key,
+                "ticketsCount" => $participantTickets->count()
+            ];
+        })->sortByDesc("ticketsCount")->take(10);
 
-        // for ($i=11; $i >= 0; $i--) { 
-        //     $baseDate = now()->subMonths($i);
+        $topParticipants = [
+            'names' => [],
+            'ticketsCount' => []
+        ];
 
-        //     array_push($patientsChartData['months'], ucwords($baseDate->locale('pt-BR')->translatedFormat('F/Y')));
-        //     array_push($patientsChartData['total'], $user->provider->patients()->whereMonth('created_at', '<=', $baseDate->month)->whereYear('created_at', '<=', $baseDate->year)->get()->count());
-        //     array_push($patientsChartData['new'], $user->provider->patients()->whereMonth('created_at', $baseDate->month)->whereYear('created_at', $baseDate->year)->get()->count());
-        // }
-
-        // $data = [
-        //     "patients" => [
-        //         "count" => $user->provider->patients->count(),
-        //         "new_this_month" => $user->provider->patients()->whereMonth('created_at', now()->month)->count(),
-        //         "overview_chart_data" => $patientsChartData
-        //     ],
-        //     "workouts" => [
-        //         "count" => $user->provider->workouts->count(),
-        //         "new_this_month" => $user->provider->workouts()->whereMonth('created_at', now()->month)->count(),
-        //     ],
-        //     "monthly_profit" => [
-        //         'amount' => $currentMonthProfit,
-        //         'pending' => $currentMonthPendingProfit,
-        //         'percent' => $lastMonthProfit != 0 ? 100 / $lastMonthProfit * ($currentMonthProfit - $lastMonthProfit) : 0
-        //     ],
-        //     "pending_profit" => [
-        //         'amount' => $user->pendingProfit(),
-        //         'percent' => $totalProfit != 0 ? 100 / $totalProfit * $user->pendingProfit() : 0
-        //     ]
-        // ];
+        foreach ($participantsTickets as $participant) {
+            array_push($topParticipants["names"], $participant["name"]);
+            array_push($topParticipants["ticketsCount"], $participant["ticketsCount"]);
+        }
 
         $data = [
             "summary" => [
@@ -81,6 +64,7 @@ class DashboardController extends Controller
                 "totalPendingTickets" => $totalPendingTickets,
                 "totalParticipants" => $totalParticipants
             ],
+            "topParticipants" => $topParticipants
         ];
 
         return response()->json($data, 200);
