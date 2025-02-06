@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\NotFoundHttpException;
+use App\Libs\ResourceManager;
 use Illuminate\Http\Request;
 
 abstract class Controller
@@ -119,22 +120,12 @@ abstract class Controller
     }
 
     protected function convertDataToResource(mixed $data): mixed {
-        $resourceClass = $this->getResourceClass();
-
-        if (class_exists($resourceClass)) {
-            $data = new $resourceClass($data);
-        }
-
-        return $data;
+        $resourceManager = new ResourceManager($this->getResourceClass(), $data);
+        return $resourceManager->convertDataToResource();
     }
 
     protected function convertDataToResourceCollection(mixed $data): mixed {
-        $resourceClass = $this->getResourceClass();
-
-        if (class_exists($resourceClass)) {
-            $data = $resourceClass::collection($data);
-        }
-
-        return $data;
+        $resourceManager = new ResourceManager($this->getResourceClass(), $data);
+        return $resourceManager->convertDataToResourceCollection();
     }
 }
