@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TicketResource;
+use App\Libs\ResourceManager;
 use App\Models\Raffle;
 use Illuminate\Http\Request;
 
@@ -235,7 +237,12 @@ class RaffleController extends Controller
      * )
      */
     public function tickets(Raffle $raffle) {
-        return response()->json($raffle->tickets, 200);
+        $resourceManager = new ResourceManager(TicketResource::class, $raffle->tickets);
+        $data = $resourceManager->convertDataToResourceCollection();
+
+        return $data;
+
+        return response()->json($data, 200);
     }
 
     /**
