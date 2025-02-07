@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ManyTicketsRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -132,6 +133,24 @@ class TicketController extends Controller
      */
     public function store(Request $request) {
         return parent::store($request);
+    }
+
+    public function storeMany(ManyTicketsRequest $request) {
+        foreach ($request->numbers as $number) {
+            $this->model::create([
+                'raffle_id' => $request->raffle_id,
+                'participant_id' => $request->participant_id,
+                'number' => $number,
+                'payment_date' => $request->payment_date,
+                'value' => $request->value
+            ]);
+        }
+
+        $response = [
+            "message" => "Bilhetes criados com sucesso!"
+        ];
+
+        return response()->json($response, 201);
     }
 
     /**

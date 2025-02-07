@@ -9,7 +9,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class TicketRequest extends FormRequest
+class ManyTicketsRequest extends FormRequest
 {
     private $raffle;
     private $ticket;
@@ -39,8 +39,8 @@ class TicketRequest extends FormRequest
         return [
             'raffle_id' => 'required|integer|exists:raffles,id',
             'participant_id' => 'required|integer|exists:participants,id',
-            'number' => [
-                'required',
+            'numbers' => ['required', 'array'],
+            'numbers.*' => [
                 'integer', 
                 new UniqueTicketNumber($this->raffle_id),
                 'min:0',
