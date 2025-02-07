@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     // Participant
     Route::apiResource('participant', ParticipantController::class);
+    Route::get('participant/{participant}/tickets', [ParticipantController::class, 'tickets']);
     
     // Ticket
     Route::apiResource('ticket', TicketController::class);

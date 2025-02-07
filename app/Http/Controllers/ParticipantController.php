@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TicketResource;
+use App\Libs\ResourceManager;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 
@@ -190,7 +192,11 @@ class ParticipantController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function destroy( $id) {
+    public function destroy($id) {
         return parent::destroy($id);
+    }
+
+    public function tickets(Participant $participant) {
+        return response()->json($participant->tickets, 200);
     }
 }
